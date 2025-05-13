@@ -2,66 +2,50 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Vocabulary Sort</title>
+  <title>Secure Textbox</title>
   <style>
-    body { font-family: Arial; padding: 20px; }
-    .container { display: flex; gap: 20px; flex-wrap: wrap; }
-    .word, .dropzone {
-      border: 2px solid #333;
-      padding: 10px;
-      margin: 5px;
-      border-radius: 8px;
-      width: 150px;
-      min-height: 40px;
-      text-align: center;
-      background-color: #f9f9f9;
-      cursor: move;
+    textarea {
+      width: 100%;
+      height: 200px;
+      font-size: 16px;
     }
-    .dropzone {
-      background-color: #eef;
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      background-color: #f4f4f4;
     }
-    .correct { background-color: #cfc; }
-    .incorrect { background-color: #fcc; }
   </style>
 </head>
 <body>
-<h2>Sort the Vocabulary Words</h2>
-<div class="container" id="words">
-  <div class="word" draggable="true" id="word1">Culture</div>
-  <div class="word" draggable="true" id="word2">Migration</div>
-</div>
+  <h2>Answer the question below (no pasting allowed):</h2>
+  <textarea id="secureInput" placeholder="Type your answer here..."></textarea>
 
-<h3>Match to the Correct Definition:</h3>
-<div class="container">
-  <div class="dropzone" data-word="Culture">Shared beliefs, customs, and behaviors of a group</div>
-  <div class="dropzone" data-word="Migration">Movement of people from one place to another</div>
-</div>
+  <script>
+    const box = document.getElementById("secureInput");
 
-<script>
-  const words = document.querySelectorAll('.word');
-  const dropzones = document.querySelectorAll('.dropzone');
-
-  words.forEach(word => {
-    word.addEventListener('dragstart', e => {
-      e.dataTransfer.setData('text/plain', e.target.id);
+    // Disable right-click
+    box.addEventListener("contextmenu", function(e) {
+      e.preventDefault();
     });
-  });
 
-  dropzones.forEach(zone => {
-    zone.addEventListener('dragover', e => e.preventDefault());
-    zone.addEventListener('drop', e => {
-      const draggedId = e.dataTransfer.getData('text/plain');
-      const draggedEl = document.getElementById(draggedId);
-      if (zone.dataset.word === draggedEl.innerText) {
-        zone.innerHTML = '';
-        zone.appendChild(draggedEl);
-        zone.classList.add('correct');
-      } else {
-        zone.classList.add('incorrect');
-        setTimeout(() => zone.classList.remove('incorrect'), 1000);
+    // Disable paste via mouse or keyboard
+    box.addEventListener("paste", function(e) {
+      e.preventDefault();
+      alert("Pasting is disabled. Please type your answer.");
+    });
+
+    // Disable drag-drop
+    box.addEventListener("drop", function(e) {
+      e.preventDefault();
+    });
+
+    // Optional: Warn on Ctrl+V or Command+V
+    box.addEventListener("keydown", function(e) {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "v") {
+        e.preventDefault();
+        alert("Paste is disabled.");
       }
     });
-  });
-</script>
+  </script>
 </body>
 </html>
