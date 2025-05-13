@@ -2,29 +2,28 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Secure Submission</title>
+  <title>Tell Me About Yourself</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      padding: 20px;
-      background: #f8f8f8;
+      background-color: #f5f5f5;
+      padding: 40px;
     }
-    textarea, input {
+    input, textarea {
       width: 100%;
       padding: 10px;
-      font-size: 16px;
       margin-bottom: 20px;
+      font-size: 16px;
     }
     button {
       padding: 10px 20px;
       font-size: 16px;
-      cursor: pointer;
     }
   </style>
 </head>
 <body>
   <h2>Tell Me About Yourself</h2>
-  <form action="https://docs.google.com/forms/d/e/1FAIpQLSeIoViCZYx9whehGe1leOtzOhdDWtQL5PrN_1JKCKnElfi8Mw/formResponse" method="POST" target="hidden_iframe" onsubmit="submitted=true;">
+  <form action="https://docs.google.com/forms/d/e/1FAIpQLSeIoViCZYx9whehGe1leOtzOhdDWtQL5PrN_1JKCKnElfi8Mw/formResponse" method="POST" target="hidden_iframe">
     
     <label for="name">Name:</label><br>
     <input type="text" name="entry.957656951" required><br><br>
@@ -35,14 +34,14 @@
     <button type="submit">Submit</button>
   </form>
 
-  <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+  <iframe name="hidden_iframe" style="display:none;"></iframe>
 
   <script>
     const box = document.getElementById("secureInput");
 
     box.addEventListener("paste", function(e) {
       e.preventDefault();
-      alert("Pasting is disabled. Please type your answer.");
+      alert("Pasting is disabled.");
     });
 
     box.addEventListener("drop", function(e) {
